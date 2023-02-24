@@ -5,7 +5,8 @@
 <div class="col-md-6 offset-md-3">
 
 {% if user.is_authenticated %}
-    <h1>hello, user!</h1>
+    <h1>hello, {{ user }}!</h1>
+
 {% else %}
 <h1>Войти</h1>
 <form method="POST" action="{% url 'home' %}">

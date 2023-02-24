@@ -2,27 +2,64 @@
 
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
+
 
 {% if user.is_authenticated %}
-    <h1>hello, {{ user }}!</h1>
+  <table class="table table-hover  table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Почта</th>
+      <th scope="col">Телефон</th>
+      <th scope="col">Адрес</th>
+      <th scope="col">Город</th>
+      <th scope="col">Область</th>
+      <th scope="col">Индекс</th>
+      <th scope="col">Создано</th>
+      <th scope="col">ID</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% if records %}
+    {% for record in records %}
+      <tr style="">
+        <td>{{ record.first_name }}</td>
+        <td>{{ record.last_name }}</td>
+        <td>{{ record.email }}</td>
+        <td>{{ record.phone }}</td>
+        <td>{{ record.address }}</td>
+        <td>{{ record.city }}</td>
+        <td>{{ record.state }}</td>
+        <td>{{ record.zipcode }}</td>
+        <td>{{ record.created_at }}</td>
+        <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
+      </tr>
+
+    {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+
 
 {% else %}
-<h1>Войти</h1>
-<form method="POST" action="{% url 'home' %}">
+<div class="col-md-6 offset-md-3">
+  <h1>Войти</h1>
+  <form method="POST" action="{% url 'home' %}">
 	{% csrf_token %}
 
-  <div class="mb-3">
-    <input type="text" class="form-control" name="username", placeholder="Логин" required>
-  </div>
+    <div class="mb-3">
+      <input type="text" class="form-control" name="username" placeholder="Логин" required>
+    </div>
 
-  <div class="mb-3">
-    <input type="password" class="form-control" name="password", placeholder="Пароль" required>
-  </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" name="password" placeholder="Пароль" required>
+    </div>
 
-  <button type="submit" class="btn btn-secondary">Войти</button>
+    <button type="submit" class="btn btn-secondary">Войти</button>
 
-</form>
+  </form>
 </div>
 
 {% endif %}
